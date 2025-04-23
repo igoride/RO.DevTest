@@ -16,13 +16,7 @@ public class Program {
             .InjectInfrastructureDependencies();
 
         // Add Mediatr to program
-        builder.Services.AddMediatR(cfg =>
-        {
-            cfg.RegisterServicesFromAssemblies(
-                typeof(ApplicationLayer).Assembly,
-                typeof(Program).Assembly
-            );
-        });
+        builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
 
         var app = builder.Build();
 
