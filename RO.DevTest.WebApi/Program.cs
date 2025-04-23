@@ -16,20 +16,20 @@ public class Program {
             .InjectInfrastructureDependencies();
 
         // Add Mediatr to program
-        builder.Services.AddMediatR(cfg =>
-        {
-            cfg.RegisterServicesFromAssemblies(
-                typeof(ApplicationLayer).Assembly,
-                typeof(Program).Assembly
-            );
-        });
+        builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
 
         var app = builder.Build();
 
-        // Configure the HTTP request pipeline.
         if(app.Environment.IsDevelopment()) {
             app.UseSwagger();
-            app.UseSwaggerUI();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
+                c.RoutePrefix = string.Empty; 
+            });
+        }else{
+            app.UseExceptionHandler("/error"); 
+            app.UseHsts();
         }
 
         app.UseHttpsRedirection();
