@@ -15,7 +15,6 @@ public class Program {
         builder.Services.InjectPersistenceDependencies()
             .InjectInfrastructureDependencies();
 
-        // Add Mediatr to program
         builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
 
         var app = builder.Build();
